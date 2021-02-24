@@ -16,3 +16,8 @@
 // const calculate = (num1) => num1 + 4;
 
 // console.log(calculate(1));
+
+//4. anonymous functions
+(() => {
+	console.log("selam");
+})();
