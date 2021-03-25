@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import UserList from './components/UserList';
+
 function App() {
+	const [name, setName] = useState('');
 	const [isVisible, setIsVisible] = useState(false);
 	const [users, setUsers] = useState([
 		{ name: 'Metin', age: 22 },
@@ -7,12 +10,15 @@ function App() {
 	]);
 
 	const handleClick = () => {
-		setUsers((prev) => [...prev, { name: 'Seda', age: 33 }]);
-
-		//setUsers([...users, { name: 'Burak', age: 33 }]);
+		if (name) {
+			setUsers((prev) => [...prev, { name, age: 33 }]);
+			setName('');
+		}
 	};
 
 	const handleToggle = () => setIsVisible(!isVisible);
+
+	const handleChangeName = (event) => setName(event.target.value);
 
 	return (
 		<div>
@@ -20,10 +26,11 @@ function App() {
 
 			{isVisible && (
 				<>
-					{users.map((user, i) => (
-						<li key={i}>{user.name}</li>
-					))}
+					<UserList users={users} />
+
 					<hr />
+
+					<input value={name} onChange={handleChangeName} />
 					<button onClick={handleClick}>Add user</button>
 				</>
 			)}
